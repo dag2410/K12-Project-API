@@ -1,0 +1,55 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Tieu de bai blog 1",
+      "content": "noi dung 1"
+    },
+    {
+      "id": 2,
+      "content": "binh luan 123",
+      "title": "tieu deeeee"
+    },
+    {
+      "id": 3,
+      "content": "binh luan 123",
+      "title": "tieu deeeee"
+    },
+    {
+      "id": 4,
+      "content": "binh luan 123",
+      "title": "tieu deeeee"
+    },
+    {
+      "id": 5,
+      "content": "binh luan 123",
+      "title": "tieu deeeee"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "content": "binh luan bai blog"
+    },
+    {
+      "id": 2,
+      "content": "binh luan 123"
+    },
+    {
+      "id": 3,
+      "content": "binh luan 123"
+    },
+    {
+      "id": 4,
+      "content": "binh luan 123"
+    },
+    {
+      "id": 5,
+      "content": "binh luan 123"
+    },
+    {
+      "id": 6,
+      "content": "binh luan 123"
+    }
+  ]
+}
