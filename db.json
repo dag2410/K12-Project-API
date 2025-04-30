@@ -1,19 +1,9 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "Tieu de bai blog 1",
-      "content": "noi dung 1"
-    },
-    {
       "id": 2,
-      "content": "binh luan 123",
-      "title": "tieu deeeee"
-    },
-    {
-      "id": 3,
-      "content": "binh luan 123",
-      "title": "tieu deeeee"
+      "content": "asdasd",
+      "title": "ad12"
     },
     {
       "id": 4,
@@ -24,6 +14,26 @@
       "id": 5,
       "content": "binh luan 123",
       "title": "tieu deeeee"
+    },
+    {
+      "id": 6,
+      "content": "binh luan 123",
+      "title": "tieu deeeee123123sd"
+    },
+    {
+      "id": 7,
+      "content": "binh luan 123",
+      "title": "tieu deeeee123123sd"
+    },
+    {
+      "id": 8,
+      "content": "binh luan 123",
+      "title": "tieu deeeee123123sd"
+    },
+    {
+      "id": 9,
+      "content": "123",
+      "title": "ronaldo `"
     }
   ],
   "comments": [
@@ -45,11 +55,41 @@
     },
     {
       "id": 5,
-      "content": "binh luan 123"
+      "content": "binh luan 123",
+      "post_id": 1
     },
     {
       "id": 6,
-      "content": "binh luan 123"
+      "content": "binh luan 123",
+      "post_id": 1
+    },
+    {
+      "id": 7,
+      "content": "binh luan 123",
+      "post_id": 1
+    },
+    {
+      "id": 8,
+      "content": "binh luan 123",
+      "post_id": 1
+    },
+    {
+      "id": 9,
+      "content": "binh luan 123",
+      "post_id": 1
+    },
+    {
+      "id": 10,
+      "content": "binh luan ronaol dinho",
+      "post_id": 1
+    },
+    {
+      "id": 11,
+      "post_id": 1
+    },
+    {
+      "id": 12,
+      "post_id": 1
     }
   ]
 }
