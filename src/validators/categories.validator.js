@@ -1,13 +1,9 @@
 const { checkSchema } = require("express-validator");
 const handlerError = require("./handlerErrors");
 
-exports.createPostValidator = [
+exports.createCategoryValidator = [
   checkSchema({
-    title: {
-      notEmpty: true,
-      errorMessage: "Trường này không được để trống",
-    },
-    content: {
+    name: {
       notEmpty: true,
       errorMessage: "Trường này không được để trống",
     },
@@ -16,27 +12,21 @@ exports.createPostValidator = [
       errorMessage: "Trường này không được để trống",
     },
   }),
+
   handlerError,
 ];
 
-exports.updatePostValidator = [
+exports.updateCategoryValidator = [
   checkSchema({
-    title: {
-      optional: true,
-      notEmpty: true,
-      errorMessage: "Trường này không được để trống",
-    },
-
-    content: {
-      optional: true,
+    name: {
       notEmpty: true,
       errorMessage: "Trường này không được để trống",
     },
     description: {
-      optional: true,
       notEmpty: true,
       errorMessage: "Trường này không được để trống",
     },
   }),
+
   handlerError,
 ];

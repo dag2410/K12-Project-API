@@ -13,22 +13,22 @@ const router = express.Router();
 // ]);
 
 //Get ALL
-router.get("/", postsController.index);
+router.get("/", postsController.getAllPosts);
 
 //GET /posts/:id
-router.get("/:id", postsController.show);
+router.get("/:id", postsController.getPostById);
 
 // POST /posts
-router.post("/", createPostValidator, postsController.store);
+router.post("/", createPostValidator, postsController.createPost);
 
 // PUT/posts
-router.put("/:id", updatePostValidator, postsController.update);
+router.put("/:id", updatePostValidator, postsController.updatePost);
 
 // PATCH/posts
-router.patch("/:id", updatePostValidator, postsController.update);
+router.patch("/:id", updatePostValidator, postsController.updatePost);
 
 // DELETE /posts
 
-router.delete("/:id", postsController.destroy);
+router.delete("/:id", postsController.deletePost);
 
 module.exports = router;

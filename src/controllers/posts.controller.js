@@ -1,9 +1,7 @@
 const { readDb, writeDb } = require("../../utils/file");
 const RESOURCE = "posts";
 
-const posts = [];
-
-const index = async (req, res) => {
+const getAllPosts = async (req, res) => {
   const posts = await readDb(RESOURCE);
   res.json({
     status: "success",
@@ -11,12 +9,12 @@ const index = async (req, res) => {
   });
 };
 
-const show = async (req, res) => {
+const getPostById = async (req, res) => {
   const posts = await readDb(RESOURCE);
   const post = posts.find((item) => item.id === +req.params.id);
 
   if (!post) {
-    res.json({
+    res.status(404).json({
       status: "error",
       message: "Resource not found",
     });
@@ -29,29 +27,30 @@ const show = async (req, res) => {
   });
 };
 
-const store = async (req, res) => {
+const createPost = async (req, res) => {
   const posts = await readDb(RESOURCE);
   const newPost = {
     id: (posts[posts.length - 1].id ?? 0) + 1,
     content: req.body.content,
     title: req.body.title,
+    description: req.body.description,
   };
 
   posts.push(newPost);
   await writeDb(RESOURCE, posts);
 
-  res.json({
+  res.status(201).json({
     status: "success",
     data: newPost,
   });
 };
 
-const update = async (req, res) => {
+const updatePost = async (req, res) => {
   const posts = await readDb(RESOURCE);
   const post = posts.find((post) => post.id === +req.params.id);
 
   if (!post) {
-    res.json({
+    res.status(404).json({
       status: "error",
       message: "Resource not found",
     });
@@ -60,7 +59,7 @@ const update = async (req, res) => {
   console.log(post);
   post.title = req.body.title;
   post.content = req.body.content;
-
+  post.description = req.body.description;
   await writeDb(RESOURCE, posts);
 
   res.json({
@@ -69,12 +68,12 @@ const update = async (req, res) => {
   });
 };
 
-const destroy = async (req, res) => {
+const deletePost = async (req, res) => {
   const posts = await readDb(RESOURCE);
   const index = posts.findIndex((post) => post.id === +req.params.id);
 
   if (index === -1) {
-    res.json({
+    res.status(404).json({
       status: "error",
       message: "Resource not found",
     });
@@ -88,9 +87,9 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
-  index,
-  show,
-  store,
-  update,
-  destroy,
+  getAllPosts,
+  getPostById,
+  createPost,
+  updatePost,
+  deletePost,
 };

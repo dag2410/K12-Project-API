@@ -1,9 +1,7 @@
 const { readDb, writeDb } = require("../../utils/file");
 const RESOURCE = "comments";
 
-const comments = [];
-
-const index = async (req, res) => {
+const getAllComments = async (req, res) => {
   const comments = await readDb(RESOURCE);
   res.json({
     status: "success",
@@ -11,7 +9,7 @@ const index = async (req, res) => {
   });
 };
 
-const show = async (req, res) => {
+const getCommentById = async (req, res) => {
   const comments = await readDb(RESOURCE);
   const comment = comments.find((item) => item.id === +req.params.id);
 
@@ -29,7 +27,7 @@ const show = async (req, res) => {
   });
 };
 
-const store = async (req, res) => {
+const createComment = async (req, res) => {
   const comments = await readDb(RESOURCE);
   const newComment = {
     id: (comments[comments.length - 1].id ?? 0) + 1,
@@ -46,7 +44,7 @@ const store = async (req, res) => {
   });
 };
 
-const update = async (req, res) => {
+const updateComment = async (req, res) => {
   const comments = await readDb(RESOURCE);
   const comment = comments.find((comment) => comment.id === +req.params.id);
 
@@ -68,7 +66,7 @@ const update = async (req, res) => {
   });
 };
 
-const destroy = async (req, res) => {
+const deleteComment = async (req, res) => {
   const comments = await readDb(RESOURCE);
   const index = comments.findIndex((comment) => comment.id === +req.params.id);
 
@@ -87,9 +85,9 @@ const destroy = async (req, res) => {
 };
 
 module.exports = {
-  index,
-  show,
-  store,
-  update,
-  destroy,
+  getAllComments,
+  getCommentById,
+  createComment,
+  updateComment,
+  deleteComment,
 };

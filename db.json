@@ -34,6 +34,12 @@
       "id": 9,
       "content": "123",
       "title": "ronaldo `"
+    },
+    {
+      "id": 10,
+      "content": "content bai viet 1",
+      "title": "baif viet test 1",
+      "description": "hahahah"
     }
   ],
   "comments": [
@@ -90,6 +96,68 @@
     {
       "id": 12,
       "post_id": 1
+    },
+    {
+      "id": 13,
+      "post_id": 1
+    },
+    {
+      "id": 14,
+      "post_id": 1
+    },
+    {
+      "id": 15,
+      "content": "content",
+      "post_id": 1
+    },
+    {
+      "id": 16,
+      "content": "content",
+      "post_id": 1
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "name",
+      "description": "dang"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "pro",
+      "description": "pro1",
+      "stock": 1
+    },
+    {
+      "id": 2,
+      "name": "pro",
+      "description": "pro1",
+      "stock": 1
+    },
+    {
+      "id": 3,
+      "name": "pro",
+      "description": "pro1",
+      "stock": 1
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "title": "todo1",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "title": "todo1",
+      "completed": false
+    },
+    {
+      "id": 4,
+      "title": "todo1",
+      "completed": false
     }
   ]
 }

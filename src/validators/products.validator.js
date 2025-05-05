@@ -1,41 +1,48 @@
 const { checkSchema } = require("express-validator");
 const handlerError = require("./handlerErrors");
 
-exports.createPostValidator = [
+exports.createProductValidator = [
   checkSchema({
-    title: {
-      notEmpty: true,
-      errorMessage: "Trường này không được để trống",
-    },
-    content: {
+    name: {
       notEmpty: true,
       errorMessage: "Trường này không được để trống",
     },
     description: {
       notEmpty: true,
       errorMessage: "Trường này không được để trống",
+    },
+    stock: {
+      notEmpty: {
+        errorMessage: "Stock không được để trống",
+      },
+      isInt: {
+        options: { min: 0 },
+        errorMessage: "Stock phải là số nguyên không âm",
+      },
     },
   }),
   handlerError,
 ];
 
-exports.updatePostValidator = [
+exports.updateProductValidator = [
   checkSchema({
-    title: {
+    name: {
       optional: true,
       notEmpty: true,
       errorMessage: "Trường này không được để trống",
     },
 
-    content: {
-      optional: true,
-      notEmpty: true,
-      errorMessage: "Trường này không được để trống",
-    },
     description: {
       optional: true,
       notEmpty: true,
       errorMessage: "Trường này không được để trống",
+    },
+    stock: {
+      optional: true,
+      isInt: {
+        options: { min: 0 },
+        errorMessage: "Stock phải là số không âm",
+      },
     },
   }),
   handlerError,
