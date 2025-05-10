@@ -46,7 +46,7 @@ const createTodo = async (req, res) => {
 
 const updateTodo = async (req, res) => {
   const todos = await readDb(RESOURCE);
-  const todo = todos.find((t) => t.id === +req.params.id);
+  const todo = todos.find((todo) => todo.id === +req.params.id);
 
   if (!todo) {
     return res.status(404).json({
@@ -55,8 +55,8 @@ const updateTodo = async (req, res) => {
     });
   }
 
-  if (req.body.title !== undefined) todo.title = req.body.title;
-  if (req.body.completed !== undefined) todo.completed = req.body.completed;
+  todo.title = req.body.title;
+  todo.completed = req.body.completed;
 
   await writeDb(RESOURCE, todos);
 
