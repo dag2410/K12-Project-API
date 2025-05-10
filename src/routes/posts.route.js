@@ -1,10 +1,10 @@
 const express = require("express");
-const postsController = require("../controllers/posts.controller");
+const postsController = require("@/controllers/posts.controller");
 
 const {
   createPostValidator,
   updatePostValidator,
-} = require("../validators/posts.validator");
+} = require("@/validators/posts.validator");
 
 const router = express.Router();
 
@@ -30,5 +30,9 @@ router.patch("/:id", updatePostValidator, postsController.updatePost);
 // DELETE /posts
 
 router.delete("/:id", postsController.deletePost);
+
+// //Post comments
+router.get("/:id/comments", postsController.getPostComments);
+router.post("/:id/comments", postsController.createPostComments);
 
 module.exports = router;

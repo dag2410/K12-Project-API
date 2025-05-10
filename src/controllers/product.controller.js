@@ -1,88 +1,34 @@
 const { readDb, writeDb } = require("../../utils/file");
-
-const RESOURCE = "products";
+const productsService = require("@/services/products.service");
+const { success } = require("../../utils/response");
+const throwError = require("../../utils/throwError");
 
 const getAllProducts = async (req, res) => {
-  const products = readDb(RESOURCE);
-  res.json({
-    status: "success",
-    data: products,
-  });
+  const products = await productsService.getAllProducts();
+  success(res, 200, products);
 };
 
 const getProductById = async (req, res) => {
-  const products = await readDb(RESOURCE);
-  const product = products.find((product) => product.id === +req.params.id);
-
-  if (!product) {
-    res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-    return;
-  }
-
-  res.json({
-    status: "success",
-    data: product,
-  });
+  const product = await productsService.getProductById(req.params.id);
+  if (!product) throwError(404, "Not found product.");
+  success(res, 200, product);
 };
 
 const createProduct = async (req, res) => {
-  const products = await readDb(RESOURCE);
-  const newProduct = {
-    id: (products[products.length - 1]?.id ?? 0) + 1,
-    name: req.body.name,
-    description: req.body.description,
-    stock: parseInt(req.body.stock, 10),
-  };
-
-  products.push(newProduct);
-  await writeDb(RESOURCE, products);
-
-  res.status(201).json({
-    status: "success",
-    data: newProduct,
-  });
+  const newProduct = await productsService.createProduct(req.body);
+  success(res, 200, newProduct);
 };
 
 const updateProduct = async (req, res) => {
-  const products = await readDb(RESOURCE);
-  const product = products.find((product) => product.id === +req.params.id);
-
-  if (!product) {
-    res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-    return;
-  }
-
-  product.name = req.body.name;
-  product.description = req.body.description;
-  (product.stock = parseInt(req.body.stock, 10)),
-    await writeDb(RESOURCE, products);
-
-  res.json({
-    status: "success",
-    data: product,
-  });
+  const product = await productsService.updateProduct(req.params.id, req.body);
+  if (!product) throwError(404, "Not found product.");
+  success(res, 200, product);
 };
 
 const deleteProduct = async (req, res) => {
-  const products = await readDb(RESOURCE);
-  const index = products.findIndex((product) => product.id === +req.body.id);
+  const result = await productsService.deleteProduct(req.params.id);
 
-  if (index === -1) {
-    res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-    return;
-  }
-
-  products.splice(index, 1);
-  writeDb(RESOURCE, products);
+  if (!result) throwError(404, "Not found product.");
   res.status(204).send();
 };
 

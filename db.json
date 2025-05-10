@@ -1,55 +1,46 @@
 {
   "posts": [
     {
-      "id": 2,
-      "content": "asdasd",
-      "title": "ad12"
+      "id": 1,
+      "content": "1 ",
+      "title": "baif viet 1",
+      "description": "sua bai 1-11"
     },
     {
-      "id": 4,
-      "content": "binh luan 123",
-      "title": "tieu deeeee"
+      "id": 2,
+      "content": "2 ",
+      "title": "2 viet sua",
+      "description": "2 2 2-"
     },
     {
       "id": 5,
-      "content": "binh luan 123",
-      "title": "tieu deeeee"
+      "content": "123 ",
+      "title": "baif viet sua",
+      "description": "sua bai 1-"
     },
     {
       "id": 6,
-      "content": "binh luan 123",
-      "title": "tieu deeeee123123sd"
+      "content": "asdasd",
+      "title": "ad12",
+      "description": "dang"
     },
     {
       "id": 7,
-      "content": "binh luan 123",
-      "title": "tieu deeeee123123sd"
-    },
-    {
-      "id": 8,
-      "content": "binh luan 123",
-      "title": "tieu deeeee123123sd"
-    },
-    {
-      "id": 9,
-      "content": "123",
-      "title": "ronaldo `"
-    },
-    {
-      "id": 10,
-      "content": "content bai viet 1",
-      "title": "baif viet test 1",
-      "description": "hahahah"
+      "content": "asdasd",
+      "title": "ad12",
+      "description": "112334332234"
     }
   ],
   "comments": [
     {
       "id": 1,
-      "content": "binh luan bai blog"
+      "content": "binh luan bai blog",
+      "post_id": 2
     },
     {
       "id": 2,
-      "content": "binh luan 123"
+      "content": "binh luan 123",
+      "post_id": 2
     },
     {
       "id": 3,
@@ -57,7 +48,8 @@
     },
     {
       "id": 4,
-      "content": "binh luan 123"
+      "content": "binh luan 123",
+      "post_id": 2
     },
     {
       "id": 5,
@@ -87,70 +79,47 @@
     {
       "id": 10,
       "content": "binh luan ronaol dinho",
-      "post_id": 1
+      "post_id": 2
     },
     {
       "id": 11,
-      "post_id": 1
-    },
-    {
-      "id": 12,
-      "post_id": 1
-    },
-    {
-      "id": 13,
-      "post_id": 1
-    },
-    {
-      "id": 14,
-      "post_id": 1
-    },
-    {
-      "id": 15,
-      "content": "content",
-      "post_id": 1
-    },
-    {
-      "id": 16,
-      "content": "content",
-      "post_id": 1
+      "content": "heloooooo bai 2",
+      "post_id": 2
     }
   ],
   "categories": [
     {
       "id": 1,
-      "name": "name",
-      "description": "dang"
+      "name": "bai 6",
+      "description": "ahahhahaha"
+    },
+    {
+      "id": 3,
+      "name": "bai 6",
+      "description": "ahahhahaha"
+    },
+    {
+      "id": 4,
+      "name": "bai 6",
+      "description": "ahahhahaha"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1
+    },
+    {
+      "id": 6,
+      "title": "bai 6",
+      "completed": false
     }
   ],
   "products": [
     {
       "id": 1,
-      "name": "pro",
-      "description": "pro1",
-      "stock": 1
-    },
-    {
-      "id": 2,
-      "name": "pro",
-      "description": "pro1",
-      "stock": 1
-    },
-    {
-      "id": 3,
-      "name": "pro",
-      "description": "pro1",
-      "stock": 1
-    }
-  ],
-  "todos": [
-    {
-      "id": 1,
-      "title": "todo123456"
-    },
-    {
-      "id": 4,
-      "title": "todo123456123123"
+      "name": "san pham 1",
+      "description": "asdasd",
+      "stock": 12
     }
   ]
 }

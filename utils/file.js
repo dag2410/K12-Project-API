@@ -7,7 +7,7 @@ async function readDb(resource, defaultValue = []) {
     return JSON.parse(jsonDb)[resource] ?? defaultValue;
   } catch (error) {
     console.log(error);
-    return {};
+    return [];
   }
 }
 async function writeDb(resource, data) {

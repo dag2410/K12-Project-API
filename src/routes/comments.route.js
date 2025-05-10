@@ -1,9 +1,9 @@
 const express = require("express");
-const commentsController = require("../controllers/comments.controller");
+const commentsController = require("@/controllers/comments.controller");
 const {
   createCommentValidator,
   updateCommentValidator,
-} = require("../validators/comments.validator");
+} = require("@/validators/comments.validator");
 
 const router = express.Router();
 // writeDb("comments", [{ id: 1, content: "binh luan bai blog" }]);

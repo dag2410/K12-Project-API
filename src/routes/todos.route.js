@@ -2,11 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const todosController = require("../controllers/todos.controller");
+const todosController = require("@/controllers/todos.controller");
 const {
   createTodoValidator,
   updateTodoValidator,
-} = require("../validators/todos.validator");
+} = require("@/validators/todos.validator");
 
 router.get("/", todosController.getAllTodos);
 

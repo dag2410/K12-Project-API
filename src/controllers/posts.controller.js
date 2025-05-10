@@ -1,95 +1,58 @@
-const { readDb, writeDb } = require("../../utils/file");
-const RESOURCE = "posts";
-
+const { success } = require("../../utils/response");
+const throwError = require("../../utils/throwError");
+const postsService = require("@/services/posts.service");
+const commentsService = require("@/services/comments.service");
+const { contextsKey } = require("express-validator/lib/base");
 const getAllPosts = async (req, res) => {
-  const posts = await readDb(RESOURCE);
-  res.json({
-    status: "success",
-    data: posts,
-  });
+  const posts = await postsService.getAllPosts();
+  success(res, 200, posts);
 };
 
 const getPostById = async (req, res) => {
-  const posts = await readDb(RESOURCE);
-  const post = posts.find((item) => item.id === +req.params.id);
-
-  if (!post) {
-    res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-
-    return;
-  }
-  res.json({
-    status: "success",
-    data: post,
-  });
+  const post = await postsService.getPostById(req.params.id);
+  if (!post) throwError(404, "Not found");
+  success(res, 200, post);
 };
 
 const createPost = async (req, res) => {
-  const posts = await readDb(RESOURCE);
-  const newPost = {
-    id: (posts[posts.length - 1].id ?? 0) + 1,
-    content: req.body.content,
-    title: req.body.title,
-    description: req.body.description,
-  };
-
-  posts.push(newPost);
-  await writeDb(RESOURCE, posts);
-
-  res.status(201).json({
-    status: "success",
-    data: newPost,
-  });
+  const newPost = await postsService.createPost(req.body);
+  success(res, 200, newPost);
 };
 
 const updatePost = async (req, res) => {
-  const posts = await readDb(RESOURCE);
-  const post = posts.find((post) => post.id === +req.params.id);
-
-  if (!post) {
-    res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-    return;
-  }
-  console.log(post);
-  post.title = req.body.title;
-  post.content = req.body.content;
-  post.description = req.body.description;
-  await writeDb(RESOURCE, posts);
-
-  res.json({
-    status: "success",
-    data: post,
-  });
+  const post = await postsService.updatePost(req.params.id, req.body);
+  if (!post) throwError(404, "Not found");
+  success(res, 200, post);
 };
 
 const deletePost = async (req, res) => {
-  const posts = await readDb(RESOURCE);
-  const index = posts.findIndex((post) => post.id === +req.params.id);
-
-  if (index === -1) {
-    res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-
-    return;
-  }
-  posts.splice(index, 1);
-  await writeDb(RESOURCE, posts);
-
+  const result = await postsService.deletePost(req.params.id);
+  if (!result) throwError(404, "Not found");
   res.status(204).send();
 };
 
+const getPostComments = async (req, res) => {
+  const post = await postsService.getPostById(req.params.id);
+  if (!post) throwError(404, "Not found");
+  const comments = await commentsService.getCommentByPostId(post.id);
+  success(res, 200, comments);
+};
+
+const createPostComments = async (req, res) => {
+  const post = await postsService.getPostById(req.params.id);
+  if (!post) throwError(404, "Not found");
+  const newComment = await commentsService.createComment({
+    post_id: post.id,
+    content: req.body.content,
+  });
+  success(res, 201, newComment);
+};
 module.exports = {
   getAllPosts,
   getPostById,
   createPost,
   updatePost,
   deletePost,
+  getPostComments,
+  createPostComments,
 };

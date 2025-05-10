@@ -1,84 +1,33 @@
-const { readDb, writeDb } = require("../../utils/file");
-
-const RESOURCE = "todos";
+// controllers/todos.controller.js
+const { success } = require("../../utils/response");
+const throwError = require("../../utils/throwError");
+const todosService = require("@/services/todos.service");
 
 const getAllTodos = async (req, res) => {
-  const todos = await readDb(RESOURCE);
-  res.json({
-    status: "success",
-    data: todos,
-  });
+  const todos = await todosService.getAllTodos();
+  success(res, 200, todos);
 };
 
 const getTodoById = async (req, res) => {
-  const todos = await readDb(RESOURCE);
-  const todo = todos.find((t) => t.id === +req.params.id);
-
-  if (!todo) {
-    return res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-  }
-
-  res.json({
-    status: "success",
-    data: todo,
-  });
+  const todo = await todosService.getTodoById(req.params.id);
+  if (!todo) throwError(404, "Resource not found");
+  success(res, 200, todo);
 };
 
 const createTodo = async (req, res) => {
-  const todos = await readDb(RESOURCE);
-  const newTodo = {
-    id: (todos[todos.length - 1]?.id ?? 0) + 1,
-    title: req.body.title,
-    completed: false,
-  };
-
-  todos.push(newTodo);
-  await writeDb(RESOURCE, todos);
-
-  res.status(201).json({
-    status: "success",
-    data: newTodo,
-  });
+  const newTodo = await todosService.createTodo(req.body);
+  success(res, 201, newTodo);
 };
 
 const updateTodo = async (req, res) => {
-  const todos = await readDb(RESOURCE);
-  const todo = todos.find((todo) => todo.id === +req.params.id);
-
-  if (!todo) {
-    return res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-  }
-
-  todo.title = req.body.title;
-  todo.completed = req.body.completed;
-
-  await writeDb(RESOURCE, todos);
-
-  res.json({
-    status: "success",
-    data: todo,
-  });
+  const todo = await todosService.updateTodo(req.params.id, req.body);
+  if (!todo) throwError(404, "Resource not found");
+  success(res, 200, todo);
 };
 
 const deleteTodo = async (req, res) => {
-  const todos = await readDb(RESOURCE);
-  const index = todos.findIndex((t) => t.id === +req.params.id);
-
-  if (index === -1) {
-    return res.status(404).json({
-      status: "error",
-      message: "Resource not found",
-    });
-  }
-
-  todos.splice(index, 1);
-  await writeDb(RESOURCE, todos);
+  const result = await todosService.deleteTodo(req.params.id);
+  if (!result) throwError(404, "Resource not found");
   res.status(204).send();
 };
 
