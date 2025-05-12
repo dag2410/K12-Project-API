@@ -17,6 +17,7 @@ const createComment = async (data) => {
   const comments = await readDb(RESOURCE);
   const newComment = {
     id: (comments[comments.length - 1].id ?? 0) + 1,
+    name: data.name,
     content: data.content,
     post_id: data.post_id,
   };

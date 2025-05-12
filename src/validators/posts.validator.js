@@ -40,3 +40,13 @@ exports.updatePostValidator = [
   }),
   handlerError,
 ];
+
+exports.createCommentPostValidator = [
+  checkSchema({
+    content: {
+      notEmpty: true,
+      errorMessage: "Trường này không được để trống",
+    },
+  }),
+  handlerError,
+];

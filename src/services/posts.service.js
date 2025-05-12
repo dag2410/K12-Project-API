@@ -37,7 +37,7 @@ const updatePost = async (id, data) => {
   post.content = data.content;
   post.description = data.description;
   await writeDb(RESOURCE, posts);
-  return post[index];
+  return post;
 };
 
 const deletePost = async (id) => {

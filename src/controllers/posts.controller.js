@@ -2,7 +2,7 @@ const { success } = require("../../utils/response");
 const throwError = require("../../utils/throwError");
 const postsService = require("@/services/posts.service");
 const commentsService = require("@/services/comments.service");
-const { contextsKey } = require("express-validator/lib/base");
+
 const getAllPosts = async (req, res) => {
   const posts = await postsService.getAllPosts();
   success(res, 200, posts);
@@ -43,10 +43,12 @@ const createPostComments = async (req, res) => {
   if (!post) throwError(404, "Not found");
   const newComment = await commentsService.createComment({
     post_id: post.id,
+    name: req.body.name,
     content: req.body.content,
   });
   success(res, 201, newComment);
 };
+
 module.exports = {
   getAllPosts,
   getPostById,

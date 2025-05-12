@@ -4,6 +4,7 @@ const postsController = require("@/controllers/posts.controller");
 const {
   createPostValidator,
   updatePostValidator,
+  createCommentPostValidator,
 } = require("@/validators/posts.validator");
 
 const router = express.Router();
@@ -33,6 +34,10 @@ router.delete("/:id", postsController.deletePost);
 
 // //Post comments
 router.get("/:id/comments", postsController.getPostComments);
-router.post("/:id/comments", postsController.createPostComments);
+router.post(
+  "/:id/comments",
+  createCommentPostValidator,
+  postsController.createPostComments
+);
 
 module.exports = router;
