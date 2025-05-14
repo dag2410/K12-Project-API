@@ -1,60 +1,26 @@
-const { success } = require("../../utils/response");
-const throwError = require("../../utils/throwError");
 const postsService = require("@/services/posts.service");
-const commentsService = require("@/services/comments.service");
+const { success } = require("../../utils/response");
 
-const getAllPosts = async (req, res) => {
-  const posts = await postsService.getAllPosts();
+exports.getList = async (req, res) => {
+  const posts = await postsService.getAll();
   success(res, 200, posts);
 };
 
-const getPostById = async (req, res) => {
-  const post = await postsService.getPostById(req.params.id);
-  if (!post) throwError(404, "Not found");
+exports.getOne = async (req, res) => {
+  success(res, 200, req.post);
+};
+
+exports.create = async (req, res) => {
+  const post = await postsService.create(req.body);
+  success(res, 201, post);
+};
+
+exports.update = async (req, res) => {
+  const post = await postsService.update(req.post.id, req.body);
   success(res, 200, post);
 };
 
-const createPost = async (req, res) => {
-  const newPost = await postsService.createPost(req.body);
-  success(res, 200, newPost);
-};
-
-const updatePost = async (req, res) => {
-  const post = await postsService.updatePost(req.params.id, req.body);
-  if (!post) throwError(404, "Not found");
-  success(res, 200, post);
-};
-
-const deletePost = async (req, res) => {
-  const result = await postsService.deletePost(req.params.id);
-  if (!result) throwError(404, "Not found");
-  res.status(204).send();
-};
-
-const getPostComments = async (req, res) => {
-  const post = await postsService.getPostById(req.params.id);
-  if (!post) throwError(404, "Not found");
-  const comments = await commentsService.getCommentByPostId(post.id);
-  success(res, 200, comments);
-};
-
-const createPostComments = async (req, res) => {
-  const post = await postsService.getPostById(req.params.id);
-  if (!post) throwError(404, "Not found");
-  const newComment = await commentsService.createComment({
-    post_id: post.id,
-    name: req.body.name,
-    content: req.body.content,
-  });
-  success(res, 201, newComment);
-};
-
-module.exports = {
-  getAllPosts,
-  getPostById,
-  createPost,
-  updatePost,
-  deletePost,
-  getPostComments,
-  createPostComments,
+exports.remove = async (req, res) => {
+  await postsService.remove(req.post.id);
+  success(res, 200);
 };

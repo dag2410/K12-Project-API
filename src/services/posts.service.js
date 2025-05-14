@@ -1,59 +1,29 @@
-// Service layer
-const { readDb, writeDb } = require("../../utils/file");
+const postsModel = require("@/models/posts.model");
+class PostsService {
+  async getAll() {
+    const users = await postsModel.findAll();
+    return users;
+  }
 
-const RESOURCE = "posts";
+  async getById(id) {
+    const user = await postsModel.findById(id);
+    return user;
+  }
 
-const getAllPosts = async () => {
-  const posts = await readDb(RESOURCE);
-  return posts;
-};
+  async create(data) {
+    const user = await postsModel.create(data);
+    return user;
+  }
 
-const getPostById = async (id) => {
-  const posts = await readDb(RESOURCE);
-  const post = posts.find((i) => i.id === +id);
-  return post;
-};
+  async update(id, data) {
+    const user = await postsModel.update(id, data);
+    return user;
+  }
 
-const createPost = async (data) => {
-  const posts = await readDb(RESOURCE);
-  const newPost = {
-    id: (posts[posts.length - 1]?.id ?? 0) + 1,
-    content: data.content,
-    title: data.title,
-    description: data.description,
-  };
-  posts.push(newPost);
-  await writeDb(RESOURCE, posts);
-  return newPost;
-};
+  async remove(id) {
+    const user = await postsModel.remove(id);
+    return user;
+  }
+}
 
-const updatePost = async (id, data) => {
-  const posts = await readDb(RESOURCE);
-  const index = posts.findIndex((i) => i.id === +id);
-  const post = posts[index];
-  if (index === -1) return null;
-
-  post.title = data.title;
-  post.content = data.content;
-  post.description = data.description;
-  await writeDb(RESOURCE, posts);
-  return post;
-};
-
-const deletePost = async (id) => {
-  const posts = await readDb(RESOURCE);
-  const index = posts.findIndex((post) => post.id === +id);
-  if (index === -1) return;
-
-  posts.splice(index, 1);
-  await writeDb(RESOURCE, posts);
-  return posts;
-};
-
-module.exports = {
-  getAllPosts,
-  getPostById,
-  createPost,
-  updatePost,
-  deletePost,
-};
+module.exports = new PostsService();

@@ -3,7 +3,7 @@
     {
       "id": 5,
       "content": "555",
-      "title": "5 viet sua",
+      "title": "5 viet sua11",
       "description": "sua bai 1-"
     },
     {
@@ -17,12 +17,6 @@
       "content": "1777777777777777777777",
       "title": "bai 7 ",
       "description": "7"
-    },
-    {
-      "id": 8,
-      "content": "bài viết mới1",
-      "title": "bài viết mới1",
-      "description": "bài viết mới1"
     }
   ],
   "comments": [
@@ -127,6 +121,12 @@
       "name": "ádasd",
       "content": "1234",
       "post_id": 7
+    },
+    {
+      "id": 24,
+      "name": "asd",
+      "content": "123",
+      "post_id": 5
     }
   ],
   "categories": [

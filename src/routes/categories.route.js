@@ -4,27 +4,29 @@ const {
   createCategoryValidator,
   updateCategoryValidator,
 } = require("@/validators/categories.validator");
+const attachResourceLoader = require("../../utils/attachResourceLoader");
 
 const router = express.Router();
+attachResourceLoader(router, ["categories"]);
 
-router.get("/", categoriesController.getAllCategories);
+router.get("/", categoriesController.getList);
 
-router.get("/:id", categoriesController.getCategoryById);
+router.get("/:categories", categoriesController.getOne);
 
-router.post("/", createCategoryValidator, categoriesController.createCategory);
+router.post("/", createCategoryValidator, categoriesController.create);
 
 router.put(
-  "/:id",
+  "/:categories",
   updateCategoryValidator,
-  categoriesController.updateCategory
+  categoriesController.updated
 );
 
 router.patch(
-  "/:id",
+  "/:categories",
   updateCategoryValidator,
-  categoriesController.updateCategory
+  categoriesController.updated
 );
 
-router.delete("/:id", categoriesController.deleteCategory);
+router.delete("/:categories", categoriesController.remove);
 
 module.exports = router;

@@ -1,62 +1,35 @@
-const { readDb, writeDb } = require("../../utils/file");
+const commentsModel = require("@/models/comments.model");
 
-const RESOURCE = "comments";
+class CommentsService {
+  async getAll() {
+    const comments = await commentsModel.findAll();
+    return comments;
+  }
 
-const getAllComments = async () => {
-  const comments = await readDb(RESOURCE);
-  return comments;
-};
+  async getById(id) {
+    const comment = await commentsModel.findById(id);
+    return comment;
+  }
 
-const getCommentById = async (id) => {
-  const comments = await readDb(RESOURCE);
-  const comment = comments.find((i) => i.id === +id);
-  return comment;
-};
+  async create(data) {
+    const comment = await commentsModel.create(data);
+    return comment;
+  }
 
-const createComment = async (data) => {
-  const comments = await readDb(RESOURCE);
-  const newComment = {
-    id: (comments[comments.length - 1].id ?? 0) + 1,
-    name: data.name,
-    content: data.content,
-    post_id: data.post_id,
-  };
-  comments.push(newComment);
-  await writeDb(RESOURCE, comments);
-  return newComment;
-};
+  async update(id, data) {
+    const comment = await commentsModel.update(id, data);
+    return comment;
+  }
 
-const updateComment = async (id, data) => {
-  const comments = await readDb(RESOURCE);
-  const index = comments.findIndex((i) => i.id === +id);
-  const comment = comments[index];
-  if (index === -1) return null;
+  async remove(id) {
+    const comment = await commentsModel.remove(id);
+    return comment;
+  }
 
-  comment.content = data.content;
-  await writeDb(RESOURCE, comments);
-  return comment[index];
-};
+  // async getCommentByPostId  (postId)  {
+  //   const comments = await readDb(RESOURCE);
+  //   return comments.filter((comment) => comment.post_id === +postId);
+  // };
+}
 
-const deleteComment = async (id) => {
-  const comments = await readDb(RESOURCE);
-  const index = comments.findIndex((i) => i.id === +id);
-  if (index === -1) return null;
-
-  comments.splice(index, 1);
-  await writeDb(RESOURCE, comments);
-  return comments;
-};
-
-const getCommentByPostId = async (postId) => {
-  const comments = await readDb(RESOURCE);
-  return comments.filter((comment) => comment.post_id === +postId);
-};
-
-module.exports = {
-  getAllComments,
-  getCommentById,
-  createComment,
-  updateComment,
-  deleteComment,
-  getCommentByPostId,
-};
+module.exports = new CommentsService();
