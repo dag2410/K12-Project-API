@@ -24,6 +24,14 @@ class PostsService {
     const user = await postsModel.remove(id);
     return user;
   }
+  async getComments(postId) {
+    const comments = await postsModel.findComments(postId);
+    return comments;
+  }
+  async createPostComment(postId, data) {
+    const comment = await postsModel.createPostComment(postId, data);
+    return comment;
+  }
 }
 
 module.exports = new PostsService();
