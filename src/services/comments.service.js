@@ -25,11 +25,6 @@ class CommentsService {
     const comment = await commentsModel.remove(id);
     return comment;
   }
-
-  // async getCommentByPostId  (postId)  {
-  //   const comments = await readDb(RESOURCE);
-  //   return comments.filter((comment) => comment.post_id === +postId);
-  // };
 }
 
 module.exports = new CommentsService();

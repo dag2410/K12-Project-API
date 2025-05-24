@@ -5,7 +5,7 @@ const models = {
   post: require("@/models/posts.model"),
   comment: require("@/models/comments.model"),
   categories: require("@/models/categories.model"),
-  listings: require("@/models/listings.model"),
+  room: require("@/models/rooms.model"),
 };
 function attachResourceLoader(router, params) {
   params.forEach((param) => {
