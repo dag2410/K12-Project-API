@@ -3,8 +3,8 @@ const categoriesController = require("@/controllers/api/categories.controller");
 const {
   createCategoryValidator,
   updateCategoryValidator,
-} = require("@/validators/categories.validator");
-const attachResourceLoader = require("../../../utils/attachResourceLoader");
+} = require("@/validators/api/categories.validator");
+const attachResourceLoader = require("../../utils/attachResourceLoader");
 
 const router = express.Router();
 attachResourceLoader(router, ["categories"]);

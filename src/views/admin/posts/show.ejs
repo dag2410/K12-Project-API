@@ -1,115 +1,111 @@
-<body>
-  <div class="app-container">
-    <!-- Main Content -->
-    <main class="content-wrapper">
-      <div class="content-header">
-        <h1>Post Detail</h1>
-        <div>
-          <a href="/admin/posts" class="btn btn-secondary" id="backButton">
-            <i class="fas fa-arrow-left"></i> Back
-          </a>
-          <a
-            href="/admin/posts/<%= post.id %>/edit"
-            class="btn btn-primary"
-            id="editButton"
-          >
-            <i class="fas fa-edit"></i> Edit
-          </a>
-        </div>
-      </div>
-
-      <!-- Post Details Container -->
-      <div class="card">
-        <div class="card-header">
-          <h3 id="itemTitle"><%= post.title %></h3>
-        </div>
-        <div class="card-body">
-          <div id="itemContent">
-            <div class="detail-header" style="margin-bottom: 20px">
-              <img
-                src="${postData.featuredImage}"
-                alt="<%= post.title %>"
-                style="width: 100%; border-radius: 8px; margin-bottom: 20px"
-              />
-              <div>
-                <h2 style="margin: 0"><%= post?.title %></h2>
-                <p style="margin: 5px 0; color: #666">Slug: <%= post.slug %></p>
-                <div style="margin: 15px 0">
-                  <span class="badge badge-success"><%= post.status %></span>
-                  <span
-                    class="badge"
-                    style="
-                      background-color: rgba(58, 134, 255, 0.1);
-                      color: #3a86ff;
-                    "
-                    ><%= post.topic %></span
-                  >
-                </div>
-                <p><strong>Author:</strong> <%= post.author %></p>
-                <p><strong>Published:</strong><%= post.published_at %></p>
-                <p>
-                  <strong>Stats:</strong> <%= post.comments %> comments, <%=
-                  post.views %> views
-                </p>
-              </div>
-            </div>
-
-            <div class="detail-section">
-              <h3>Excerpt</h3>
-              <p><em><%= post.excerpt %></em></p>
-            </div>
-
-            <div class="detail-section">
-              <h3>Content</h3>
-              <div style="line-height: 1.6"><%= post.content %></div>
-            </div>
-
-            <div class="detail-section">
-              <h3>Tags</h3>
-              <div>
-                <span
-                  class="badge"
-                  style="background-color: #eee; color: #555; margin-right: 5px"
-                  ><%= post.tags %></span
-                >
-              </div>
-            </div>
-            <!-- <div class="loading-spinner">Loading details...</div> -->
-          </div>
-        </div>
-      </div>
-
-      <!-- Activity History -->
-      <div class="card">
-        <div class="card-header">
-          <h3>Activity History</h3>
-        </div>
-        <div class="card-body">
-          <ul class="activity-list" id="activityList">
-            <li style="padding: 15px 0; border-bottom: 1px solid #eee">
-              <div style="display: flex; justify-content: space-between">
-                <div>
-                  <i
-                    class="fas fa-history"
-                    style="color: #3a86ff; margin-right: 10px"
-                  ></i>
-                  <strong>${activity.action}</strong> by ${ activity.user }
-                </div>
-                <div style="color: #666">
-                  ${formatDate(activity.date, { year: "numeric", month: "short",
-                  day: "numeric", hour: "2-digit", minute: "2-digit", })}
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </main>
+<main class="content-wrapper">
+  <div class="content-header">
+    <h1>Post Detail</h1>
+    <div>
+      <a href="/admin/posts" class="btn btn-secondary" id="backButton">
+        <i class="fas fa-arrow-left"></i> Back
+      </a>
+      <a
+        href="/admin/posts/<%= post.id %>/edit"
+        class="btn btn-primary"
+        id="editButton"
+      >
+        <i class="fas fa-edit"></i> Edit
+      </a>
+    </div>
   </div>
 
-  <script src="assets/js/common.js"></script>
+  <!-- Post Details Container -->
+  <div class="card">
+    <div class="card-header">
+      <h3 id="itemTitle"><%= post.title %></h3>
+    </div>
+    <div class="card-body">
+      <div id="itemContent">
+        <div class="detail-header" style="margin-bottom: 20px">
+          <img
+            src="${postData.featuredImage}"
+            alt="<%= post.title %>"
+            style="width: 100%; border-radius: 8px; margin-bottom: 20px"
+          />
+          <div>
+            <h2 style="margin: 0"><%= post?.title %></h2>
+            <p style="margin: 5px 0; color: #666">Slug: <%= post.slug %></p>
+            <div style="margin: 15px 0">
+              <span class="badge badge-success"><%= post.status %></span>
+              <span
+                class="badge"
+                style="
+                  background-color: rgba(58, 134, 255, 0.1);
+                  color: #3a86ff;
+                "
+                ><%= post.topic %></span
+              >
+            </div>
+            <p><strong>Author:</strong> <%= post.author %></p>
+            <p><strong>Published:</strong><%= post.published_at %></p>
+            <p>
+              <strong>Stats:</strong> <%= post.comments %> comments, <%=
+              post.views %> views
+            </p>
+          </div>
+        </div>
 
-  <!-- <script>
+        <div class="detail-section">
+          <h3>Excerpt</h3>
+          <p><em><%= post.excerpt %></em></p>
+        </div>
+
+        <div class="detail-section">
+          <h3>Content</h3>
+          <div style="line-height: 1.6"><%= post.content %></div>
+        </div>
+
+        <div class="detail-section">
+          <h3>Tags</h3>
+          <div>
+            <span
+              class="badge"
+              style="background-color: #eee; color: #555; margin-right: 5px"
+              ><%= post.tags %></span
+            >
+          </div>
+        </div>
+        <!-- <div class="loading-spinner">Loading details...</div> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity History -->
+  <div class="card">
+    <div class="card-header">
+      <h3>Activity History</h3>
+    </div>
+    <div class="card-body">
+      <ul class="activity-list" id="activityList">
+        <li style="padding: 15px 0; border-bottom: 1px solid #eee">
+          <div style="display: flex; justify-content: space-between">
+            <div>
+              <i
+                class="fas fa-history"
+                style="color: #3a86ff; margin-right: 10px"
+              ></i>
+              <strong>${activity.action}</strong> by ${ activity.user }
+            </div>
+            <div style="color: #666">
+              ${formatDate(activity.date, { year: "numeric", month: "short",
+              day: "numeric", hour: "2-digit", minute: "2-digit", })}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/common.js"></script>
+
+<!-- <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Get post ID from URL
       const urlParams = new URLSearchParams(window.location.search);
@@ -269,45 +265,44 @@
     }
   </script> -->
 
-  <style>
-    /* Additional styles for the detail page */
-    .detail-section {
-      margin-bottom: 30px;
-    }
+<style>
+  /* Additional styles for the detail page */
+  .detail-section {
+    margin-bottom: 30px;
+  }
 
-    .detail-section h3 {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
+  .detail-section h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
 
-    .detail-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+  .detail-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
 
-    .detail-table td {
-      padding: 10px 0;
-      border-bottom: 1px solid #f5f5f5;
-    }
+  .detail-table td {
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
 
-    .detail-table td:first-child {
-      width: 150px;
-      color: #666;
-    }
+  .detail-table td:first-child {
+    width: 150px;
+    color: #666;
+  }
 
-    .activity-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+  .activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-    .loading-spinner {
-      text-align: center;
-      padding: 40px;
-      color: #666;
-    }
-  </style>
-</body>
+  .loading-spinner {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+  }
+</style>

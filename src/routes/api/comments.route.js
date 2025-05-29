@@ -3,8 +3,8 @@ const commentsController = require("@/controllers/api/comments.controller");
 const {
   createCommentValidator,
   updateCommentValidator,
-} = require("@/validators/comments.validator");
-const attachResourceLoader = require("../../../utils/attachResourceLoader");
+} = require("@/validators/api/comments.validator");
+const attachResourceLoader = require("../../utils/attachResourceLoader");
 
 const router = express.Router();
 attachResourceLoader(router, ["comment"]);

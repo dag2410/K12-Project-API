@@ -30,36 +30,39 @@
             <div class="form-group">
               <label for="postTitle">Post Title*</label>
               <input
+                value="<%= old?.title %>"
                 type="text"
                 id="postTitle"
                 name="postTitle"
                 class="form-control"
-                required
               />
-              <span class="error-text" id="postTitleError"></span>
+              <% if(errors?.title){ %>
+              <span class="error-text" id="postTitleError"
+                ><%= errors.title %></span
+              >
+              <% } %>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label for="postSlug">Slug*</label>
                 <input
+                  value="<%= old?.slug %>"
                   type="text"
                   id="postSlug"
                   name="postSlug"
                   class="form-control"
-                  required
                 />
-                <span class="error-text" id="postSlugError"></span>
+                <% if(errors?.slug){ %>
+                <span class="error-text" id="postSlugError"
+                  ><%= errors.slug %></span
+                >
+                <% } %>
               </div>
 
               <div class="form-group">
                 <label for="postAuthor">Author*</label>
-                <select
-                  id="postAuthor"
-                  name="postAuthor"
-                  class="form-control"
-                  required
-                >
+                <select id="postAuthor" name="postAuthor" class="form-control">
                   <option value="">Select Author</option>
                   <option value="admin" selected>Administrator</option>
                   <option value="editor">Editor</option>
@@ -72,12 +75,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="postTopic">Topic*</label>
-                <select
-                  id="postTopic"
-                  name="postTopic"
-                  class="form-control"
-                  required
-                >
+                <select id="postTopic" name="postTopic" class="form-control">
                   <option value="">Select Topic</option>
                   <option value="productivity">Productivity</option>
                   <option value="technology">Technology</option>
@@ -89,12 +87,7 @@
 
               <div class="form-group">
                 <label for="postStatus">Status*</label>
-                <select
-                  id="postStatus"
-                  name="postStatus"
-                  class="form-control"
-                  required
-                >
+                <select id="postStatus" name="postStatus" class="form-control">
                   <option value="">Select Status</option>
                   <option value="published">Published</option>
                   <option value="draft" selected>Draft</option>
@@ -125,14 +118,18 @@
             <div class="form-group">
               <label for="postExcerpt">Excerpt*</label>
               <textarea
+                value="<%= old?.excerpt %>"
                 id="postExcerpt"
                 name="postExcerpt"
                 class="form-control"
                 rows="2"
-                required
                 placeholder="Enter a short excerpt (summary) of your post"
               ></textarea>
-              <span class="error-text" id="postExcerptError"></span>
+              <% if(errors?.excerpt){ %>
+              <span class="error-text" id="postExcerptError"
+                ><%= errors.excerpt %></span
+              >
+              <% } %>
             </div>
 
             <div class="form-group">
@@ -142,7 +139,6 @@
                 name="postContent"
                 class="form-control"
                 rows="10"
-                required
                 placeholder="Enter the main content of your post here"
               ></textarea>
               <span class="error-text" id="postContentError"></span>
@@ -255,7 +251,7 @@
 
   <script src="assets/js/common.js"></script>
 
-  <script>
+  <!-- <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Initialize form validation
       initFormValidation("createPostForm");
@@ -294,10 +290,10 @@
           );
           if (this.value === "scheduled") {
             scheduledDateContainer.style.display = "block";
-            document.getElementById("postScheduledDate").required = true;
+            document.getElementById("postScheduledDate"). = true;
           } else {
             scheduledDateContainer.style.display = "none";
-            document.getElementById("postScheduledDate").required = false;
+            document.getElementById("postScheduledDate"). = false;
           }
         });
 
@@ -369,7 +365,7 @@
           window.location.href = "posts.html";
         });
     });
-  </script>
+  </script> -->
 
   <style>
     /* Additional styling for checkbox groups */

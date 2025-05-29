@@ -1,7 +1,7 @@
 const db = require("@/configs/db");
 
 exports.findAll = async () => {
-  const [comments] = await db.query("select * from comments");
+  const [comments] = await db.query("select * from comments order by id desc");
   return comments;
 };
 

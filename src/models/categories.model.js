@@ -1,7 +1,9 @@
 const db = require("@/configs/db");
 
 exports.findAll = async () => {
-  const [categories] = await db.query("select * from categories");
+  const [categories] = await db.query(
+    "select * from categories order by id desc"
+  );
   return categories;
 };
 

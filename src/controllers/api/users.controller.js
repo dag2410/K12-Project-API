@@ -1,5 +1,5 @@
 const usersService = require("@/services/users.service");
-const { success } = require("../../../utils/response");
+const { success } = require("../../utils/response");
 
 exports.getList = async (req, res) => {
   const users = await usersService.getAll();

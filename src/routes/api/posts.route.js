@@ -4,8 +4,8 @@ const {
   createPostValidator,
   updatePostValidator,
   createCommentPostValidator,
-} = require("@/validators/posts.validator");
-const attachResourceLoader = require("../../../utils/attachResourceLoader");
+} = require("@/validators/api/posts.validator");
+const attachResourceLoader = require("../../utils/attachResourceLoader");
 
 const router = express.Router();
 attachResourceLoader(router, ["post"]);

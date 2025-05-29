@@ -1,10 +1,10 @@
 const express = require("express");
 const roomsController = require("@/controllers/api/rooms.controller");
-const attachResourceLoader = require("../../../utils/attachResourceLoader");
+const attachResourceLoader = require("../../utils/attachResourceLoader");
 const {
   createRoomValidator,
   updateRoomValidator,
-} = require("@/validators/rooms.validator");
+} = require("@/validators/api/rooms.validator");
 
 const router = express.Router();
 attachResourceLoader(router, ["room"]);

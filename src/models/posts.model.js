@@ -2,7 +2,7 @@ const db = require("@/configs/db");
 const commentsModel = require("@/models/comments.model");
 
 exports.findAll = async () => {
-  const [posts] = await db.query(`select * from posts`);
+  const [posts] = await db.query(`select * from posts order by id desc`);
   return posts;
 };
 

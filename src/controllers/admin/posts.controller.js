@@ -19,12 +19,14 @@ exports.show = async (req, res) => {
 exports.create = async (req, res) => {
   res.render("admin/posts/create", {
     title: "Create Post",
+    old: {},
+    errors: {},
   });
 };
 
 exports.store = async (req, res) => {
   const post = await postsService.create(req.body);
-  res.redirect(`admin/posts/${post.id}`);
+  res.redirect(`admin/posts`);
 };
 
 exports.edit = async (req, res) => {

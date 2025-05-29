@@ -1,439 +1,278 @@
-<body>
-  <div class="content-header">
-    <h1><%= title %></h1>
+<div class="content-header">
+  <h1>Edit user</h1>
+
+  <form method="POST" action="/admin/users/<%= old?.id %>?_method=DELETE">
     <div>
       <a href="/admin/users" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Back to Users
       </a>
-      <a
-        href="#"
+      <button
+        type="submit"
         class="btn btn-danger"
         id="deleteUserBtn"
         style="margin-left: 10px"
+        onclick="return confirm('Bạn có chắc chắn xóa người dùng <%= old?.name %>, id là <%= old?.id %> ?')"
       >
         <i class="fas fa-trash"></i> Delete User
-      </a>
-    </div>
-  </div>
-
-  <!-- Success Message -->
-  <div
-    id="successMessage"
-    class="message message-success"
-    style="display: none"
-  >
-    <i class="fas fa-check-circle"></i>
-    <span data-message-text>User has been updated successfully.</span>
-  </div>
-
-  <!-- Edit User Form -->
-  <form id="editUserForm" class="card">
-    <div class="card-header">
-      <h3>User Information</h3>
-    </div>
-    <div class="card-body">
-      <div class="form-section">
-        <h3>Personal Information</h3>
-        <div class="form-group">
-          <label for="userName">Full Name*</label>
-          <input
-            type="text"
-            id="userName"
-            name="userName"
-            class="form-control"
-            required
-            data-validate="name"
-          />
-          <span class="error-text" id="userNameError"></span>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="userEmail">Email*</label>
-            <input
-              type="email"
-              id="userEmail"
-              name="userEmail"
-              class="form-control"
-              required
-            />
-            <span class="error-text" id="userEmailError"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="userPhone">Phone</label>
-            <input
-              type="tel"
-              id="userPhone"
-              name="userPhone"
-              class="form-control"
-              data-validate="phone"
-            />
-            <span class="error-text" id="userPhoneError"></span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="userAddress">Address</label>
-          <textarea
-            id="userAddress"
-            name="userAddress"
-            class="form-control"
-            rows="2"
-          ></textarea>
-          <span class="error-text" id="userAddressError"></span>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3>Account Information</h3>
-        <div class="form-group">
-          <label for="userUsername">Username*</label>
-          <input
-            type="text"
-            id="userUsername"
-            name="userUsername"
-            class="form-control"
-            required
-            data-validate="username"
-          />
-          <span class="error-text" id="userUsernameError"></span>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="userRole">Role*</label>
-            <select id="userRole" name="userRole" class="form-control" required>
-              <option value="">Select Role</option>
-              <option value="admin">Administrator</option>
-              <option value="editor">Editor</option>
-              <option value="viewer">Viewer</option>
-            </select>
-            <span class="error-text" id="userRoleError"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="userStatus">Status*</label>
-            <select
-              id="userStatus"
-              name="userStatus"
-              class="form-control"
-              required
-            >
-              <option value="">Select Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-              <option value="pending">Pending</option>
-            </select>
-            <span class="error-text" id="userStatusError"></span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="dateCreated">Date Created</label>
-          <input
-            type="text"
-            id="dateCreated"
-            class="form-control"
-            readonly
-            disabled
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="lastLogin">Last Login</label>
-          <input
-            type="text"
-            id="lastLogin"
-            class="form-control"
-            readonly
-            disabled
-          />
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3>Change Password</h3>
-        <p class="form-help-text">Leave blank to keep the current password</p>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="userPassword">New Password</label>
-            <input
-              type="password"
-              id="userPassword"
-              name="userPassword"
-              class="form-control"
-              data-validate="password"
-            />
-            <span class="error-text" id="userPasswordError"></span>
-          </div>
-
-          <div class="form-group">
-            <label for="userConfirmPassword">Confirm New Password</label>
-            <input
-              type="password"
-              id="userConfirmPassword"
-              name="userConfirmPassword"
-              class="form-control"
-            />
-            <span class="error-text" id="userConfirmPasswordError"></span>
-          </div>
-        </div>
-        <p class="form-help-text">
-          Password must be at least 8 characters and include uppercase,
-          lowercase, number, and special character.
-        </p>
-      </div>
-
-      <div class="form-section">
-        <h3>Email Notifications</h3>
-        <div class="form-group">
-          <div class="checkbox-group">
-            <input
-              type="checkbox"
-              id="emailNotifications"
-              name="emailNotifications"
-              checked
-            />
-            <label for="emailNotifications"
-              >Send email notifications to this user</label
-            >
-          </div>
-          <div class="checkbox-group">
-            <input
-              type="checkbox"
-              id="adminNotifications"
-              name="adminNotifications"
-            />
-            <label for="adminNotifications"
-              >Notify administrators about changes to this user</label
-            >
-          </div>
-        </div>
-      </div>
-
-      <div class="form-buttons">
-        <button type="button" class="btn btn-secondary" id="cancelBtn">
-          Cancel
-        </button>
-        <button type="submit" class="btn btn-primary">
-          <i class="fas fa-save"></i> Save Changes
-        </button>
-      </div>
+      </button>
     </div>
   </form>
+</div>
 
-  <!-- Confirm Delete Modal -->
-  <div class="modal" id="confirmDeleteModal">
-    <div class="modal-content">
-      <h3 class="modal-title">Confirm Delete</h3>
-      <div class="modal-body">
-        Are you sure you want to delete user "<span id="deleteUserName"></span
-        >"? This action cannot be undone.
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          id="cancelDelete"
-          class="btn btn-secondary"
-          data-cancel
-        >
-          Cancel
-        </button>
-        <button
-          type="button"
-          id="confirmDelete"
-          class="btn btn-danger"
-          data-confirm
-        >
-          Delete
-        </button>
-      </div>
-    </div>
+<!-- Success Message -->
+<div id="successMessage" class="message message-success" style="display: none">
+  <i class="fas fa-check-circle"></i>
+  <span data-message-text>User has been updated successfully.</span>
+</div>
+
+<!-- Edit User Form -->
+<form method="POST" action="/admin/users/<%= old?.id %>?_method=PUT">
+  <div class="card-header">
+    <h3>User Information</h3>
   </div>
 
-  <script src="/assets/js/common.js"></script>
+  <div class="card-body">
+    <div class="form-section">
+      <h3>Personal Information</h3>
 
-  <!-- <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Get user ID from URL
-      const urlParams = new URLSearchParams(window.location.search);
-      const userId = urlParams.get("id");
+      <div class="form-group">
+        <label for="userName">Full Name*</label>
+        <input
+          value="<%= old?.name %>"
+          type="text"
+          id="userName"
+          name="name"
+          class="form-control"
+          data-validate="name"
+        />
+        <% if (errors?.name) { %>
+          <span class="error-text" id="userNameError"><%= errors.name %></span>
+        <% } %>
+      </div>
 
-      if (!userId) {
-        // Redirect to users page if no ID is provided
-        window.location.href = "users.html";
-        return;
-      }
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userEmail">Email*</label>
+          <input
+            value="<%= old?.email %>"
+            type="email"
+            id="userEmail"
+            name="email"
+            class="form-control"
+          />
+          <% if (errors?.email) { %>
+            <span class="error-text" id="userEmailError"><%= errors.email %></span>
+          <% } %>
+        </div>
 
-      // Initialize form validation
-      initFormValidation("editUserForm");
+        <div class="form-group">
+          <label for="userPhone">Phone</label>
+          <input
+            value="<%= old?.phone %>"
+            type="tel"
+            id="userPhone"
+            name="phone"
+            class="form-control"
+            data-validate="phone"
+          />
+          <% if (errors?.phone) { %>
+            <span class="error-text" id="userPhoneError"><%= errors.phone %></span>
+          <% } %>
+        </div>
+      </div>
 
-      // Load user data
-      loadUserData(userId);
+      <div class="form-group">
+        <label for="userAddress">Address</label>
+        <textarea
+          id="userAddress"
+          name="address"
+          class="form-control"
+          rows="1"
+        ><%= old?.address || "" %></textarea>
+        <span class="error-text" id="userAddressError"></span>
+      </div>
+    </div>
 
-      // Handle form submission
-      document
-        .getElementById("editUserForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault();
+    <div class="form-section">
+      <h3>Account Information</h3>
 
-          if (validateForm("editUserForm")) {
-            // Check if password and confirm password match (if provided)
-            const password = document.getElementById("userPassword").value;
-            const confirmPassword = document.getElementById(
-              "userConfirmPassword"
-            ).value;
+      <div class="form-group">
+        <label for="userUsername">Username*</label>
+        <input
+          value="<%= old?.username %>"
+          type="text"
+          id="userUsername"
+          name="username"
+          class="form-control"
+          data-validate="username"
+        />
+        <% if (errors?.username) { %>
+          <span class="error-text" id="userUsernameError"><%= errors.username %></span>
+        <% } %>
+      </div>
 
-            if (password && password !== confirmPassword) {
-              showError(
-                document.getElementById("userConfirmPassword"),
-                "Passwords do not match."
-              );
-              return;
-            }
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userRole">Role*</label>
+          <select id="userRole" name="role" class="form-control">
+            <% 
+              const roleOptions = [
+                { title: "Select Role", value: "" },
+                { title: "Administrator", value: "admin" },
+                { title: "Editor", value: "editor" },
+                { title: "Viewer", value: "viewer" }
+              ];
+              for (let option of roleOptions) {
+            %>
+              <option value="<%= option.value %>" <%= option.value === old.role ? "selected" : "" %>>
+                <%= option.title %>
+              </option>
+            <% } %>
+          </select>
+          <% if (errors?.role) { %>
+            <span class="error-text" id="userRoleError"><%= errors.role %></span>
+          <% } %>
+        </div>
 
-            // Update user (in a real application, this would be an API call)
-            console.log("Updating user...");
+        <div class="form-group">
+          <label for="userStatus">Status*</label>
+          <select id="userStatus" name="status" class="form-control">
+            <% 
+              const statusOptions = [
+                { title: "Select Status", value: "" },
+                { title: "Active", value: "active" },
+                { title: "Inactive", value: "inactive" },
+                { title: "Pending", value: "pending" }
+              ];
+              for (let option of statusOptions) {
+            %>
+              <option value="<%= option.value %>" <%= option.value === old.status ? "selected" : "" %>>
+                <%= option.title %>
+              </option>
+            <% } %>
+          </select>
+          <% if (errors?.status) { %>
+            <span class="error-text" id="userStatusError"><%= errors.status %></span>
+          <% } %>
+        </div>
+      </div>
 
-            // Generate form data for logging
-            const formData = {
-              id: userId,
-              name: document.getElementById("userName").value,
-              username: document.getElementById("userUsername").value,
-              email: document.getElementById("userEmail").value,
-              phone: document.getElementById("userPhone").value,
-              address: document.getElementById("userAddress").value,
-              role: document.getElementById("userRole").value,
-              status: document.getElementById("userStatus").value,
-              password: password || "unchanged",
-              sendEmail: document.getElementById("emailNotifications").checked,
-              notifyAdmin: document.getElementById("adminNotifications").checked,
-            };
+      <div class="form-group">
+        <label>Date Created</label>
+        <div><%= new Date(old?.created_at).toLocaleString("vi-VN") %></div>
+      </div>
 
-            console.log("Form data:", formData);
+      <div class="form-group">
+        <label for="lastLogin">Last Login</label>
+        <input
+          type="text"
+          id="lastLogin"
+          class="form-control"
+          readonly
+          disabled
+        />
+      </div>
+    </div>
 
-            // Show success message
-            showMessage(
-              "successMessage",
-              "User has been updated successfully.",
-              3000
-            );
+    <div class="form-section">
+      <h3>Change Password</h3>
+      <p class="form-help-text">Leave blank to keep the current password</p>
 
-            // Redirect after a delay
-            setTimeout(() => {
-              window.location.href = "user-detail.html?id=" + userId;
-            }, 2000);
-          }
-        });
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userPassword">New Password</label>
+          <input
+            type="password"
+            id="userPassword"
+            name="password"
+            class="form-control"
+            data-validate="password"
+          />
+          <% if (errors?.password) { %>
+            <span class="error-text" id="userPasswordError"><%= errors.password %></span>
+          <% } %>
+        </div>
 
-      // Handle cancel button
-      document.getElementById("cancelBtn").addEventListener("click", function () {
-        window.location.href = "user-detail.html?id=" + userId;
-      });
+        <div class="form-group">
+          <label for="userConfirmPassword">Confirm New Password</label>
+          <input
+            type="password"
+            id="userConfirmPassword"
+            class="form-control"
+          />
+          <% if (errors?.confirm_password) { %>
+            <span class="error-text" id="userConfirmPasswordError"><%= errors.confirm_password %></span>
+          <% } %>
+        </div>
+      </div>
 
-      // Handle delete button
-      document
-        .getElementById("deleteUserBtn")
-        .addEventListener("click", async function (e) {
-          e.preventDefault();
+      <p class="form-help-text">
+        Password must be at least 8 characters and include uppercase, lowercase, number, and special character.
+      </p>
+    </div>
 
-          // Get user name from field
-          const userName = document.getElementById("userName").value;
+    <!--
+    <div class="form-section">
+      <h3>Email Notifications</h3>
+      <div class="form-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="emailNotifications" name="emailNotifications" checked />
+          <label for="emailNotifications">Send email notifications to this user</label>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="adminNotifications" name="adminNotifications" />
+          <label for="adminNotifications">Notify administrators about changes to this user</label>
+        </div>
+      </div>
+    </div>
+    -->
 
-          // Set the name in the modal
-          document.getElementById("deleteUserName").textContent = userName;
+    <div class="form-buttons">
+      <button
+        onclick="window.location.href='/admin/users'"
+        type="button"
+        class="btn btn-secondary"
+        id="cancelBtn"
+      >
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> Save Changes
+      </button>
+    </div>
+  </div>
+</form>
 
-          // Show modal
-          const result = await showConfirmDialog("confirmDeleteModal");
+<!-- Confirm Delete Modal (Commented Out)
+<div class="modal" id="confirmDeleteModal">
+  <div class="modal-content">
+    <h3 class="modal-title">Confirm Delete</h3>
+    <div class="modal-body">
+      Are you sure you want to delete user "<span id="deleteUserName"></span>"?
+      This action cannot be undone.
+    </div>
+    <div class="modal-footer">
+      <button type="button" id="cancelDelete" class="btn btn-secondary" data-cancel>Cancel</button>
+      <button type="button" id="confirmDelete" class="btn btn-danger" data-confirm>Delete</button>
+    </div>
+  </div>
+</div>
+-->
 
-          if (result) {
-            // In a real app, this would make an API call to delete the user
-            console.log("Deleting user with ID:", userId);
+<script src="/assets/js/common.js"></script>
 
-            // Redirect to users list
-            window.location.href = "users.html";
-          }
-        });
+<style>
+  .checkbox-group {
+    margin-bottom: 10px;
+  }
 
-      // Custom validation for password confirmation
-      document
-        .getElementById("userConfirmPassword")
-        .addEventListener("blur", function () {
-          const password = document.getElementById("userPassword").value;
-          const confirmPassword = this.value;
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+  }
 
-          if (password && password !== confirmPassword) {
-            showError(this, "Passwords do not match.");
-          }
-        });
-    });
-
-    // Load user data for editing
-    function loadUserData(userId) {
-      // In a real application, this would be an API call
-      // For demonstration, we'll use mock data
-      const userData = {
-        id: userId,
-        name: "John Doe",
-        username: "johndoe",
-        email: "john.doe@example.com",
-        phone: "+1 (555) 123-4567",
-        address: "123 Main St, City, Country",
-        role: "admin",
-        status: "active",
-        dateCreated: "2023-05-15",
-        lastLogin: "Today, 09:45 AM",
-        emailNotifications: true,
-        adminNotifications: false,
-      };
-
-      // Set document title
-      document.title = `Edit User: ${userData.name} | Admin Dashboard`;
-
-      // Fill form fields with user data
-      document.getElementById("userName").value = userData.name;
-      document.getElementById("userEmail").value = userData.email;
-      document.getElementById("userPhone").value = userData.phone;
-      document.getElementById("userAddress").value = userData.address;
-      document.getElementById("userUsername").value = userData.username;
-      document.getElementById("userRole").value = userData.role;
-      document.getElementById("userStatus").value = userData.status;
-      document.getElementById("dateCreated").value = formatDate(
-        userData.dateCreated
-      );
-      document.getElementById("lastLogin").value = userData.lastLogin;
-      document.getElementById("emailNotifications").checked =
-        userData.emailNotifications;
-      document.getElementById("adminNotifications").checked =
-        userData.adminNotifications;
-    }
-
-    // Format date helper
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-    }
-  </script> -->
-
-  <style>
-    /* Additional styling for checkbox groups */
-    .checkbox-group {
-      margin-bottom: 10px;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      margin-right: 8px;
-    }
-
-    .form-help-text {
-      margin-top: 5px;
-      color: #666;
-      font-size: 13px;
-    }
-  </style>
-</body>
+  .form-help-text {
+    margin-top: 5px;
+    color: #666;
+    font-size: 13px;
+  }
+</style>

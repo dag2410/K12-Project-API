@@ -1,7 +1,7 @@
 const db = require("@/configs/db");
 
 exports.findAll = async () => {
-  const [users] = await db.query("select * from users");
+  const [users] = await db.query("select * from users order by id desc");
   return users;
 };
 

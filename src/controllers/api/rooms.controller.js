@@ -1,5 +1,5 @@
 const roomsService = require("@/services/rooms.service");
-const { success } = require("../../../utils/response");
+const { success } = require("../../utils/response");
 
 const getList = async (req, res) => {
   const rooms = await roomsService.getAll();

@@ -1,5 +1,5 @@
 const commentsService = require("@/services/comments.service");
-const { success } = require("../../../utils/response");
+const { success } = require("../../utils/response");
 
 const getList = async (req, res) => {
   const comments = await commentsService.getAll();

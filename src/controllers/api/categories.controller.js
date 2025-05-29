@@ -1,5 +1,5 @@
 const categoriesService = require("@/services/categories.service");
-const { success } = require("../../../utils/response");
+const { success } = require("../../utils/response");
 
 const getList = async (req, res) => {
   const categories = await categoriesService.getAll();

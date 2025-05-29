@@ -1,5 +1,5 @@
 const postsService = require("@/services/posts.service");
-const { success } = require("../../../utils/response");
+const { success } = require("../../utils/response");
 
 exports.getList = async (req, res) => {
   const posts = await postsService.getAll();
