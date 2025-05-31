@@ -3,7 +3,7 @@ const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const cors = require("cors");
 const methodOverride = require("method-override");
-// const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 
 const router = require("@/routes/api");
 const adminRouter = require("@/routes/admin");
@@ -15,7 +15,7 @@ const handleSession = require("@/middleware/admin/handleSession");
 const app = express();
 const port = 3000;
 
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(cors());
 app.use(express.static("public"));
 app.use(express.json()); //parse fetch/xhr body : content type :application/json
@@ -30,7 +30,7 @@ app.set("views", "./src/views");
 app.set("layout", "./admin/layout/default");
 
 app.use("/api/v1", router);
-app.use("/admin", handleSidebar, adminRouter);
+app.use("/admin", handleSession, handleSidebar, adminRouter);
 
 app.use(notFoundHandler);
 app.use(handleErrors);

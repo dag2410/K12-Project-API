@@ -1,4 +1,5 @@
 const db = require("@/configs/db");
+const { buildInsertQuery, buildUpdateQuery } = require("@/utils/queryBuilder");
 
 exports.findAll = async () => {
   const [users] = await db.query("select * from users order by id desc");
@@ -14,13 +15,10 @@ exports.findById = async (id) => {
 };
 
 exports.create = async (data) => {
-  const fields = Object.keys(data);
-  const columns = fields.map((field) => `\`${field}\``).join(", ");
-  const placeholders = fields.map(() => "?").join(", ");
-  const values = fields.map((field) => data[field]);
-
-  const query = `insert into users (${columns}) values (${placeholders})`;
+  const { columns, placeholders, values } = buildInsertQuery(data);
+  const query = `INSERT INTO users (${columns}) VALUES (${placeholders});`;
   const [{ insertId }] = await db.query(query, values);
+
   return {
     id: insertId,
     ...data,
@@ -28,13 +26,9 @@ exports.create = async (data) => {
 };
 
 exports.update = async (id, data) => {
-  const fields = Object.keys(data);
-  const setClause = fields.map((field) => `\`${field}\` = ?`).join(", ");
-  const values = fields.map((field) => data[field]);
-
-  const query = `UPDATE users SET ${setClause} WHERE id = ?`;
+  const { setClause, values } = buildUpdateQuery(data);
   values.push(id);
-
+  const query = `UPDATE users SET ${setClause} WHERE id = ?;`;
   await db.query(query, values);
   return {
     id,

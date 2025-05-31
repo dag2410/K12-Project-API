@@ -1,4 +1,5 @@
 const db = require("@/configs/db");
+const { buildInsertQuery, buildUpdateQuery } = require("@/utils/queryBuilder");
 const commentsModel = require("@/models/comments.model");
 
 exports.findAll = async () => {
@@ -15,13 +16,10 @@ exports.findById = async (id) => {
 };
 
 exports.create = async (data) => {
-  const fields = Object.keys(data);
-  const columns = fields.map((field) => `\`${field}\``).join(", ");
-  const placeholders = fields.map(() => "?").join(", ");
-  const values = fields.map((field) => data[field]);
-
-  const query = `insert into posts (${columns}) values (${placeholders})`;
+  const { columns, placeholders, values } = buildInsertQuery(data);
+  const query = `INSERT INTO posts (${columns}) VALUES (${placeholders})`;
   const [{ insertId }] = await db.query(query, values);
+
   return {
     id: insertId,
     ...data,
@@ -29,13 +27,9 @@ exports.create = async (data) => {
 };
 
 exports.update = async (id, data) => {
-  const fields = Object.keys(data);
-  const setClause = fields.map((field) => `\`${field}\` = ?`).join(", ");
-  const values = fields.map((field) => data[field]);
-
-  const query = `update posts set ${setClause} where id = ?`;
+  const { setClause, values } = buildUpdateQuery(data);
   values.push(id);
-
+  const query = `UPDATE posts SET ${setClause} WHERE id = ?`;
   await db.query(query, values);
   return {
     id,

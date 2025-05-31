@@ -2,6 +2,7 @@ const usersService = require("@/services/users.service");
 
 exports.index = async (req, res) => {
   const users = await usersService.getAll();
+  // console.log(await res.session.get("name"));
   res.render("admin/users/", {
     title: "users List",
     users,
