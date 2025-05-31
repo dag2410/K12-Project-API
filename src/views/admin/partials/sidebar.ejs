@@ -1,7 +1,9 @@
 <!-- Sidebar -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <h1>Admin Dashboard</h1>
+    <h1>
+    <%= auth ? `Hi, ${auth.name}`: "Admin Dashboard" %>
+    </h1>
   </div>
 
   <nav class="sidebar-menu">

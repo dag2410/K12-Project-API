@@ -1,8 +1,11 @@
 const db = require("@/configs/db");
 const { buildInsertQuery, buildUpdateQuery } = require("@/utils/queryBuilder");
 
-exports.findBySid = async (id) => {
-  const [rows] = await db.query(`select * from sessions where id = ?`, [id]);
+exports.findBySid = async (sid) => {
+  const [rows] = await db.query(
+    `select * from sessions where sid = ? and expires_at > NOW()`,
+    [sid]
+  );
   return rows[0];
 };
 
@@ -13,27 +16,27 @@ exports.create = async (data) => {
   const [{ insertId }] = await db.query(query, values);
 
   return {
-    id: insertId,
+    sid: insertId,
     ...data,
   };
 };
 
-exports.update = async (id, data) => {
+exports.update = async (sid, data) => {
   const { setClause, values } = buildUpdateQuery(data);
-  values.push(id);
-  const query = `UPDATE sessions SET ${setClause} WHERE id = ?;`;
+  values.push(sid);
+  const query = `UPDATE sessions SET ${setClause} WHERE sid = ?;`;
   await db.query(query, values);
 
   return {
-    id,
+    sid,
     ...data,
   };
 };
 
-exports.remove = async (id) => {
+exports.remove = async (sid) => {
   const [{ affectedRows }] = await db.query(
-    `delete from sessions where id = ?`,
-    [id]
+    `delete from sessions where sid = ?`,
+    [sid]
   );
   return affectedRows > 0;
 };

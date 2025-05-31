@@ -10,7 +10,8 @@ const adminRouter = require("@/routes/admin");
 const notFoundHandler = require("@/middleware/notFoundHandler");
 const handleErrors = require("@/middleware/handleErrors");
 const handleSidebar = require("@/middleware/admin/handleSidebar");
-const handleSession = require("@/middleware/admin/handleSession");
+const session = require("@/middleware/admin/session");
+const shareLocals = require("@/middleware/admin/shareLocals");
 
 const app = express();
 const port = 3000;
@@ -30,7 +31,7 @@ app.set("views", "./src/views");
 app.set("layout", "./admin/layout/default");
 
 app.use("/api/v1", router);
-app.use("/admin", handleSession, handleSidebar, adminRouter);
+app.use("/admin", session, shareLocals, handleSidebar, adminRouter);
 
 app.use(notFoundHandler);
 app.use(handleErrors);
