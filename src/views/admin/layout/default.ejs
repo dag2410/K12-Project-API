@@ -17,7 +17,10 @@
       <%- include("../partials/sidebar") %>
 
       <!-- Main Content -->
-      <main class="content-wrapper"><%- body %></main>
+      <main class="content-wrapper">
+        <!-- flash message -->
+        <%- include("../partials/flash-message") %> <%- body %>
+      </main>
     </div>
 
     <!-- Confirm Dialog -->

@@ -20,13 +20,13 @@
     <div class="form-section">
       <h3>Personal Information</h3>
       <div class="form-group">
-        <label for="userName">Full Name</label>
+        <label for="name">Full Name</label>
         <input
           value="<%= old?.name%>"
           type="text"
-          id="userName"S
+          id="name"
+          name="name"
           class="form-control"
-          data-validate="name"
         />
         <% if(errors?.name) {%>
         <span class="error-text" id="userNameError"> <%= errors.name %> </span>
@@ -107,10 +107,18 @@
         <div class="form-group">
           <label for="userRole">Role*</label>
           <select id="userRole" name="role" class="form-control">
-            <option value="">Select Role</option>
-            <option value="admin">Administrator</option>
-            <option value="editor">Editor</option>
-            <option value="viewer">Viewer</option>
+            <% const roleOptions=[ 
+            {title:"Select Role",value: "" },
+            {title:"Admin",value:"Administrator" },
+            {title:"Editor",value:"Editor" }, 
+            {title:"Viewer",value:"viewer" },
+            ]
+            for(let option of roleOptions){ 
+            %>
+            <option value="<%= option.value%>" <%= option.value===old.role ? "selected": ""%>>
+              <%= option.title%>
+            </option>
+            <% } %>
           </select>
           <span class="error-text" id="userRoleError"></span>
         </div>
@@ -118,10 +126,19 @@
         <div class="form-group">
           <label for="userStatus">Status*</label>
           <select id="userStatus" name="status" class="form-control">
-            <option value="">Select Status</option>
-            <option value="active" selected>Active</option>
-            <option value="inactive">Inactive</option>
-            <option value="pending">Pending</option>
+            <% const statusOptions =[
+            {title:"Select status",value:""},
+            {title:"Active",value:"active"},
+            {title:"Inactive",value:"Inactive"},
+            {title:"Pending",value:"Pending"},
+          ] 
+          for(let option of statusOptions){
+          %>
+            <option value="<%= option.value%>" <%= option.value === old.status ? "selected" : "" %>>
+              <%= option.title%>
+            </option> 
+          <% }%>
+          
           </select>
           <span class="error-text" id="userStatusError"></span>
         </div>
@@ -215,7 +232,7 @@
   </div>
 </form>
 
-<script src="/assets/js/common.js"></script>
+<!-- <script src="/assets/js/common.js"></script> -->
 
 <style>
   /* Additional styling for checkbox groups */

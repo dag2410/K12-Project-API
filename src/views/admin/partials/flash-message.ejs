@@ -1,0 +1,30 @@
+<% getFlashMessages('success').forEach(f => { %>
+<div class="flash-message <%= f.type %>"><%= f.message %></div>
+<% }); %>
+
+<style>
+  .flash-message {
+    padding: 16px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+
+  .flash-message.success {
+    border-color: #a3cfbb;
+    background: #d1e7dd;
+  }
+
+  .flash-message.error {
+    border-color: #f5c2c7;
+    background: #f8d7da;
+  }
+
+  .flash-message.warning {
+    border-color: #ffeeba;
+    background: #fff3cd;
+  }
+  .flash-message.info {
+    border-color: #bad9ff;
+    background: #9abcff;
+  }
+</style>

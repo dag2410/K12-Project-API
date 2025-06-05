@@ -26,9 +26,11 @@
       <a href="/admin/accountSettings" class="dropdown-item">
         <i class="fas fa-user-cog"></i> Account Settings
       </a>
-      <a href="login.html" class="dropdown-item">
-        <i class="fas fa-sign-out-alt"></i> Logout
-      </a>
+      <form method="POST" action="/admin/auth/logout?_method=DELETE">
+        <button type="submit" style="border: none;background-color: transparent; padding: 10px   ;" class="dropdown-item">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button> 
+      </form>
     </div>
   </div>
 </aside>

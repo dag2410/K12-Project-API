@@ -1,7 +1,7 @@
 const { randomUUID } = require("node:crypto");
 const sessionModel = require("@/models/sessions.model");
 
-async function handleSession(req, res, next) {
+async function session(req, res, next) {
   let _sid = req.cookies.sid;
   let session = _sid && (await sessionModel.findBySid(req.cookies.sid));
   if (!session) {
@@ -21,20 +21,22 @@ async function handleSession(req, res, next) {
       } expires=${date.toUTCString()} `
     );
   }
-  const sessionData = JSON.parse(session.data ?? null) ?? {};
 
-  req.session = {
-    get(key) {
-      return sessionData[key] ?? null;
-    },
-    set(key, data) {
-      sessionData[key] = data;
-      sessionModel.update(_sid, {
-        data: JSON.stringify(sessionData),
-      });
-    },
+  req.session = JSON.parse(session.data ?? null) ?? {};
+
+  res.flash = (data) => {
+    if (!req.session.flash) {
+      req.session.flash = [];
+    }
+    req.session.flash.push(data);
   };
+
+  res.on("finish", () => {
+    sessionModel.update(_sid, {
+      data: JSON.stringify(req.session),
+    });
+  });
   next();
 }
 
-module.exports = handleSession;
+module.exports = session;

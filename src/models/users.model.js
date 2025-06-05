@@ -11,7 +11,7 @@ exports.findById = async (id) => {
     `select * from users where id = ? or username = ?`,
     [id, id]
   );
-  return users[0];
+  return users[0] ?? null;
 };
 
 exports.findByEmailAndPassword = async (email, password) => {

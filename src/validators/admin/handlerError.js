@@ -20,7 +20,7 @@ const handlerError = (req, res, next) => {
       ...req.body,
       id: req.params.id,
     },
-    layout: res.layout || "/admin/layout/default",
+    layout: res.layout || undefined,
   });
 };
 

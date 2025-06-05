@@ -8,10 +8,10 @@ exports.createUserValidator = [
   },
   checkSchema({
     name: {
-      notEmpty: true,
-      errorMessage: "Name không được để trống.",
+      notEmpty: {
+        errorMessage: "Name không được để trống.",
+      },
     },
-
     email: {
       notEmpty: {
         errorMessage: "Email không được để trống.",
@@ -37,8 +37,8 @@ exports.createUserValidator = [
         errorMessage: "Số điện thoại chưa đúng định dạng.",
       },
       isLength: {
-        options: { min: 10 },
-        errorMessage: "Số điện thoai phải có 10 số.",
+        options: { min: 9, max: 10 },
+        errorMessage: "Số điện thoai tối thiểu có 9 số, tối đa có 10 số.",
       },
     },
     address: {

@@ -120,11 +120,11 @@
                 { title: "Select Role", value: "" },
                 { title: "Administrator", value: "admin" },
                 { title: "Editor", value: "editor" },
-                { title: "Viewer", value: "viewer" }
+                { title: "Viewer", value: "viewer" },
               ];
               for (let option of roleOptions) {
             %>
-              <option value="<%= option.value %>" <%= option.value === old.role ? "selected" : "" %>>
+              <option value="<%= option.value %>" <%= option.value === old?.role ? "selected" : "" %>>
                 <%= option.title %>
               </option>
             <% } %>

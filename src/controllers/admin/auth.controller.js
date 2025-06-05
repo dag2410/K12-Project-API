@@ -14,6 +14,10 @@ exports.register = async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   });
+  res.flash({
+    type: "success",
+    message: "Đăng kí thành công",
+  });
   res.redirect("/admin/auth/login");
 };
 
@@ -28,10 +32,20 @@ exports.showLoginForm = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   const user = await usersService.getByEmailAndPassword(email, password);
+
   if (user) {
-    req.session.set("userId", user.id);
+    req.session.userId = user.id;
+    res.flash({
+      type: "success",
+      message: "Đăng nhập thành công",
+    });
     return res.redirect("/admin");
   }
+};
+
+exports.logout = async (req, res) => {
+  delete req.session.userId;
+  return res.redirect("/admin/auth/login");
 };
 
 exports.showForgotForm = async (req, res) => {
