@@ -18,7 +18,7 @@ async function session(req, res, next) {
       "Set-Cookie",
       `sid=${_sid}; path=/; httpOnly;${
         isProduction ? " Secure" : ""
-      } expires=${date.toUTCString()} `
+      }; expires=${date.toUTCString()} `
     );
   }
 

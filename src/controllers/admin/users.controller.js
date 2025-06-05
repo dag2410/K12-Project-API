@@ -50,6 +50,7 @@ exports.update = async (req, res) => {
   });
   res.redirect(`/admin/users`);
 };
+
 exports.destroy = async (req, res) => {
   const deleted = await usersService.remove(+req.params.id);
 

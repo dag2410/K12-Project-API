@@ -7,7 +7,6 @@ async function shareLocals(req, res, next) {
     res.locals.auth = await userModel.findById(userId);
   }
   res.locals.flash = req.session.flash || [];
-  console.log(res.locals.flash);
   res.locals.getFlashMessages = (type) => {
     if (type) {
       return res.locals.flash.filter((msg) => msg.type === type);

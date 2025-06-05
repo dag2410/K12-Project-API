@@ -11,7 +11,7 @@
  Target Server Version : 100432 (10.4.32-MariaDB)
  File Encoding         : 65001
 
- Date: 30/05/2025 18:32:38
+ Date: 05/06/2025 21:27:18
 */
 
 SET NAMES utf8mb4;
@@ -143,19 +143,20 @@ INSERT INTO `rooms` VALUES (12, 2, 'can ho ha noi', 1230000.00, 'hanoi', 4, 'die
 -- ----------------------------
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions`  (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sid` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `expires_at` datetime NOT NULL,
   `created_at` datetime NULL DEFAULT current_timestamp(),
   `updated_at` datetime NULL DEFAULT current_timestamp() ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE,
+  PRIMARY KEY (`sid`) USING BTREE,
   INDEX `sessions_expires_at_idx`(`expires_at`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sessions
 -- ----------------------------
-INSERT INTO `sessions` VALUES ('6d84ad5e-2ca1-4abf-a9ed-35d6aa00c45d', NULL, '0000-00-00 00:00:00', '2025-05-30 02:10:27', '2025-05-30 02:10:27');
+INSERT INTO `sessions` VALUES ('2c0e92d8-6885-4fcf-b544-6e2966b26d03', '{\"userId\":135}', '2025-06-07 20:31:26', '2025-05-31 20:31:26', '2025-06-05 18:44:19');
+INSERT INTO `sessions` VALUES ('8692b36e-8bbe-4f36-b9e6-300cf3bcbc26', '{}', '2025-06-07 19:33:32', '2025-05-31 19:33:32', '2025-05-31 20:24:44');
 
 -- ----------------------------
 -- Table structure for users
@@ -183,15 +184,16 @@ CREATE TABLE `users`  (
   UNIQUE INDEX `email_unique`(`email`) USING BTREE,
   UNIQUE INDEX `phone_unique`(`phone`) USING BTREE,
   UNIQUE INDEX `username_unique`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 136 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'hai dang ', 'haidang@gmail.com', '123', 'haidang', '2004-10-24', NULL, 'male', '0397546472', 'single', NULL, 'Ha Noi', NULL, '2025-05-24 20:11:41', NULL, 'admin', 'active ');
-INSERT INTO `users` VALUES (50, 'dinh nghe b', 'duongbach@gmail.com', '', 'duongnghe123123', '2004-10-24', NULL, NULL, '01234567891', NULL, NULL, '                  Thành Công Ba Đình Hà Nội\r\n        \r\n        \r\n        ', NULL, '2025-05-27 10:18:51', '2025-05-27 21:52:48', 'editor', 'inactive');
+INSERT INTO `users` VALUES (1, 'hai dang ', 'haidang@gmail.com', '12345678', 'haidang', '2004-10-24', NULL, 'male', '0397546472', 'single', NULL, 'Ha Noi', NULL, '2025-05-24 20:11:41', '2025-05-31 18:18:03', 'admin', 'active ');
 INSERT INTO `users` VALUES (55, 'duong bach', 'bach@gmail.com', '', 'bachd123', NULL, NULL, NULL, '02345678912', NULL, NULL, 'hanoi', NULL, '2025-05-28 08:18:10', '2025-05-28 19:21:17', 'editor', 'active');
-INSERT INTO `users` VALUES (60, 'duong bao tram', 'tram@gmail.com', '12345678', 'tram123456', NULL, NULL, NULL, '02345672345', NULL, NULL, '            hanoi\r\n        \r\n        ', NULL, '2025-05-28 08:25:33', '2025-05-29 09:46:01', 'editor', 'active');
-INSERT INTO `users` VALUES (61, 'dung 123', 'dung@gmail.com', '12345678', 'dung123', NULL, NULL, NULL, '0988776475', NULL, NULL, 'Thành Công Ba Đình Hà Nội', NULL, '2025-05-28 08:36:07', '2025-05-30 08:32:17', 'viewer', 'inactive');
+INSERT INTO `users` VALUES (119, 'Dương Hải Đăng8367', 'dagge11r2241004abc@gmail.com', '12345678', 'dang8367', NULL, NULL, NULL, '0123454281', NULL, NULL, 'Thành Công Ba Đình Hà Nội', NULL, '2025-06-05 01:26:26', '2025-06-05 01:26:26', 'Editor', 'active');
+INSERT INTO `users` VALUES (132, 'duong bao tram', 'tram@gmail.com', '12345678', 'tram123', NULL, NULL, NULL, '0127866789', NULL, NULL, 'Thành Công Ba Đình Hà Nội', NULL, '2025-06-05 15:49:47', '2025-06-05 15:49:47', 'Editor', 'active');
+INSERT INTO `users` VALUES (133, 'duong bao tram123', 'tram123@gmail.com', '12345678', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-06-05 16:15:18', '2025-06-05 16:15:18', NULL, NULL);
+INSERT INTO `users` VALUES (135, 'duong bao tram123', 'tram1231@gmail.com', '12345678', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-06-05 18:44:10', '2025-06-05 18:44:10', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

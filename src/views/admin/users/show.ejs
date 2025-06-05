@@ -28,7 +28,7 @@
       <div style="margin-left: 20px">
         <h2 style="margin: 0"><%= user.name %></h2>
         <p style="margin: 5px 0; color: #666"><%= user.username %></p>
-        <span class="badge badge-success"><%= user.status %></span>
+        <span class="badge <%= user.status === "active" ? "badge-success" :(user.status === "inactive" ? "badge-danger" : "badge-warning") %>"><%= user.status %></span>
         <span
           class="badge"
           style="background-color: rgba(58, 134, 255, 0.1); color: #3a86ff"

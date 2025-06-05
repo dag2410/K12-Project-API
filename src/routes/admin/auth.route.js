@@ -1,8 +1,8 @@
 const express = require("express");
 const {
   registerValidator,
-} = require("@/validators/admin/auth/register.validator");
-const { loginValidator } = require("@/validators/admin/auth/login.validator");
+  loginValidator,
+} = require("@/validators/admin/auth.validator");
 const authController = require("@/controllers/admin/auth.controller");
 const router = express.Router();
 
