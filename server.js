@@ -1,4 +1,6 @@
+require("dotenv").config();
 require("module-alias/register");
+
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const cors = require("cors");

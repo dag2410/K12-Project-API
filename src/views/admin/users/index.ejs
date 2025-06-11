@@ -85,12 +85,12 @@
             <div class="avatar"><%= user.avatar%></div>
             <div style="margin-left: 15px">
               <div class="item-title"><%= user.name %></div>
-              <div class="item-subtitle"><%= user.email %></div>
+              <div class="item-subtitle"><%= user.email  %></div>
             </div>
           </div>
         </td>
-        <td><%= user.email %></td>
-        <td><%= user.role %></td>
+        <td><%= user.email  %></td>
+        <td><%= user.role  %></td>
         <td><%= new Date(user.created_at).toLocaleDateString('vi-VN') %></td>
         <td>
           <span class="badge <%= user.status === "active" ? "badge-success" :(user.status === "inactive" ? "badge-danger" : "badge-warning")  %>"><%= user.status %></span>

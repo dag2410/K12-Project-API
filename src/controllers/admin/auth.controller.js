@@ -1,4 +1,6 @@
+const transporter = require("@/configs/mail");
 const usersService = require("@/services/users.service");
+const { verifyToken, createToken } = require("@/utils/jwt");
 
 exports.showRegisterForm = async (req, res) => {
   res.render("admin/auth/register", {
@@ -9,14 +11,37 @@ exports.showRegisterForm = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-  await usersService.create({
+  const user = await usersService.create({
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
   });
+  const token = createToken(
+    {
+      userId: user.id,
+    },
+    {
+      expiresIn: 60 * 60 * 12,
+    }
+  );
+
+  const verifyUrl = `${req.protocol}://${req.host}/admin/auth/verify-email?token=${token}`;
+  transporter.sendMail({
+    from: "dangdhf8198@fullstack.edu.vn",
+    to: user.email,
+    html: ` <div>
+                <p>
+                    Nhấn vào đây để xác thực:
+                </p>
+                <p>
+                    <a href="${verifyUrl}">Xác minh tài khoản</a>
+                </p>
+            </div>`,
+  });
+
   res.flash({
     type: "success",
-    message: "Đăng kí thành công",
+    message: `Chúng tôi đã gửi một email xác thực tới ${user.email}. Hãy kiểm tra inbox và xác minh để tiếp tục.`,
   });
   res.redirect("/admin/auth/login");
 };
@@ -58,4 +83,26 @@ exports.showResetForm = async (req, res) => {
   res.render("admin/auth/resetPassword", {
     layout: "admin/layout/auth",
   });
+};
+
+exports.verifyEmail = async (req, res) => {
+  const token = req.query.token;
+  const verify = verifyToken(token);
+  if (verify.success) {
+    const userId = verify.data.userId;
+    const user = await usersService.getById(userId);
+    if (user.verified_at) {
+      res.flash({
+        type: "info",
+        message: "Liên kết xác minh đã hết hạn hoặc không hợp lệ",
+      });
+      return res.redirect("/admin/login");
+    }
+    await usersService.update(userId, {
+      verified_at: new Date(),
+    });
+    res.send("Verify success");
+    return;
+  }
+  res.send("Verify fail");
 };
